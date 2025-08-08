@@ -1,10 +1,11 @@
 # Module 1 — Introduction to the Cloud ☁️
 
-**Status:** ✅ Completed
+Status: ✅ Completed
 
 ## Key Concepts
-- **What is Cloud Computing?**  
-  On-demand delivery of IT resources via the internet with pay-as-you-go pricing.
+
+- **What is Cloud Computing?**
+On-demand delivery of IT resources via the internet with pay-as-you-go pricing.
   
 - **Benefits of Cloud Computing**
   - Cost savings (no upfront infrastructure)
@@ -23,6 +24,7 @@
   - **SaaS** (Software as a Service)
 
 ## AWS-Specific Points
+
 - AWS provides **global infrastructure** with multiple regions & availability zones.
 - AWS offers **pay-as-you-go** pricing and free tier usage.
 - Key services introduced:
@@ -31,4 +33,5 @@
   - Amazon RDS (databases)
 
 ## Summary
+
 AWS cloud enables organizations to innovate faster, scale easily, and reduce IT costs by leveraging globally distributed infrastructure.
