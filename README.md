@@ -31,7 +31,7 @@ Tracking my progress for the **AWS Cloud Practitioner Essentials** course from A
 ---
 
 ## 📊 Overall Progress
-![Progress](https://progress-bar.dev/0/?title=Overall&width=300)
+![Progress](https://img.shields.io/badge/Progress-20%25-blue)
 
 ---
 

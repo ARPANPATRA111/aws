@@ -1,0 +1,109 @@
+name: Update README Progress
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-readme:
+    # don't run if the push was performed by the actions bot (prevents loop)
+    if: ${{ github.actor != 'github-actions[bot]' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      - name: Run update script
+        run: |
+          python3 <<'PY'
+          import os, re, math, sys
+
+          modules_dir = "modules"
+          if not os.path.isdir(modules_dir):
+              print(f"Directory '{modules_dir}' not found. Exiting.")
+              sys.exit(0)
+
+          module_files = sorted([f for f in os.listdir(modules_dir) if f.endswith(".md")])
+          if not module_files:
+              print("No module files found, skipping...")
+              sys.exit(0)
+
+          total = len(module_files)
+          completed = 0
+          in_progress = 0
+          # table rows for the README
+          table_rows = []
+
+          status_re = re.compile(r"\*{0,2}Status:\*{0,2}\s*(.*)", flags=re.IGNORECASE)
+
+          for idx, fname in enumerate(module_files, start=1):
+              path = os.path.join(modules_dir, fname)
+              with open(path, "r", encoding="utf-8") as fh:
+                  content = fh.read()
+
+              m = status_re.search(content)
+              status_text = m.group(1).strip() if m else "⬜ Not Started"
+              s_low = status_text.lower()
+
+              # classify status
+              if "✅" in status_text or "completed" in s_low or "done" in s_low:
+                  completed += 1
+              elif "🟡" in status_text or "in progress" in s_low or "in-progress" in s_low:
+                  in_progress += 1
+              else:
+                  # treat everything else as not started / todo
+                  pass
+
+              # pretty module name from filename
+              modname = re.sub(r"module\d+-", "", fname).replace(".md", "").replace("-", " ").title()
+              link = f"[Notes]({modules_dir}/{fname})"
+              table_rows.append(f"| {idx} | {modname} | {status_text} | {link} |")
+
+          not_started = total - completed - in_progress
+
+          # weight for in-progress (change this number to adjust how much progress an in-progress module counts for)
+          in_progress_weight = 0.5
+          effective = completed + in_progress_weight * in_progress
+          percent = math.floor((effective / total) * 100)
+
+          badge = f"![Progress](https://img.shields.io/badge/Progress-{percent}%25-blue)"
+
+          readme = f"""# ☁ AWS Cloud Practitioner Essentials – Learning Tracker
+
+Automatically updated progress for the **AWS Cloud Practitioner Essentials** course.
+
+---
+
+## 📊 Overall Progress
+{badge}
+
+**Completed:** {completed}/{total} • **In Progress:** {in_progress} • **Not Started:** {not_started}
+
+---
+
+## 📂 Modules & Status
+| #  | Module Name | Status | Link |
+|----|-------------|--------|------|
+""" + "\n".join(table_rows) + "\n"
+
+          with open("README.md", "w", encoding="utf-8") as fh:
+              fh.write(readme)
+
+          print("README.md updated.")
+          PY
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Auto-update README progress" || echo "No changes to commit"
+          git push || echo "Push failed (possibly no new commits)"
