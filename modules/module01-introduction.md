@@ -1,7 +1,6 @@
 # Module 1 — Introduction to the Cloud ☁️
 
-## Status
-✅ Completed
+**Status:** ✅ Completed
 
 ## Key Concepts
 - **What is Cloud Computing?**  

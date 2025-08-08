@@ -34,7 +34,6 @@ jobs:
               print(f"Directory '{modules_dir}' not found. Exiting.")
               sys.exit(0)
 
-          # Expected 13 modules
           module_titles = [
               "Module 1 - Introduction to the Cloud",
               "Module 2 - Compute in the Cloud",
@@ -56,7 +55,11 @@ jobs:
           in_progress = 0
           table_rows = []
 
-          status_re = re.compile(r"\*{0,2}Status:\*{0,2}\s*(.*)", flags=re.IGNORECASE)
+          # Match "Status: something" OR "## Status\nsomething"
+          status_re = re.compile(
+              r"(?:\*{0,2}Status:\*{0,2}\s*(.*)|##\s*Status\s*\n\s*(.*))",
+              flags=re.IGNORECASE
+          )
 
           for idx, title in enumerate(module_titles, start=1):
               fname = f"module{idx:02d}.md"
@@ -69,7 +72,7 @@ jobs:
 
                   m = status_re.search(content)
                   if m:
-                      status_candidate = m.group(1).strip()
+                      status_candidate = (m.group(1) or m.group(2)).strip()
                       s_low = status_candidate.lower()
 
                       if "✅" in status_candidate or "completed" in s_low:
@@ -83,11 +86,8 @@ jobs:
               table_rows.append(f"| {idx} | {title} | {status_text} | {link} |")
 
           not_started = total - completed - in_progress
-
-          # Weighted progress (in-progress = 0.5)
           effective = completed + 0.5 * in_progress
           percent = math.floor((effective / total) * 100)
-
           badge = f"![Progress](https://img.shields.io/badge/Progress-{percent}%25-blue)"
 
           readme = (
