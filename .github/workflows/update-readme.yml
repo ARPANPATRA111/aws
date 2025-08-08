@@ -4,24 +4,27 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "modules/*.md"
+  workflow_dispatch:
 
 jobs:
   update-readme:
-    # don't run if the push was performed by the actions bot (prevents loop)
     if: ${{ github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
+
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: 3.x
 
-      - name: Run update script
+      - name: Generate README Progress
         run: |
           python3 <<'PY'
           import os, re, math, sys
@@ -31,51 +34,62 @@ jobs:
               print(f"Directory '{modules_dir}' not found. Exiting.")
               sys.exit(0)
 
-          module_files = sorted([f for f in os.listdir(modules_dir) if f.lower().endswith(".md")])
-          if not module_files:
-              print("No module files found, skipping...")
-              sys.exit(0)
+          # Expected 13 modules
+          module_titles = [
+              "Module 1 - Introduction to the Cloud",
+              "Module 2 - Compute in the Cloud",
+              "Module 3 - Exploring Compute Services",
+              "Module 4 - Going Global",
+              "Module 5 - Networking",
+              "Module 6 - Storage",
+              "Module 7 - Databases",
+              "Module 8 - AI, ML and Data Analytics",
+              "Module 9 - Security",
+              "Module 10 - Monitoring, Compliance and Governance in AWS Cloud",
+              "Module 11 - Pricing and Support",
+              "Module 12 - Migrating to the AWS Cloud",
+              "Module 13 - Well-Architected Solutions"
+          ]
 
-          total = len(module_files)
+          total = len(module_titles)
           completed = 0
           in_progress = 0
           table_rows = []
 
-          # matches lines like: Status: ✅ Completed  or **Status:** In Progress
           status_re = re.compile(r"\*{0,2}Status:\*{0,2}\s*(.*)", flags=re.IGNORECASE)
 
-          for idx, fname in enumerate(module_files, start=1):
-              path = os.path.join(modules_dir, fname)
-              with open(path, "r", encoding="utf-8") as fh:
-                  content = fh.read()
+          for idx, title in enumerate(module_titles, start=1):
+              fname = f"module{idx:02d}.md"
+              fpath = os.path.join(modules_dir, fname)
+              status_text = "⬜ Not Started"
 
-              m = status_re.search(content)
-              status_text = m.group(1).strip() if m else "⬜ Not Started"
-              s_low = status_text.lower()
+              if os.path.isfile(fpath):
+                  with open(fpath, "r", encoding="utf-8") as fh:
+                      content = fh.read()
 
-              # classify status
-              if "✅" in status_text or "completed" in s_low or "done" in s_low:
-                  completed += 1
-              elif "🟡" in status_text or "in progress" in s_low or "in-progress" in s_low:
-                  in_progress += 1
-              else:
-                  pass
+                  m = status_re.search(content)
+                  if m:
+                      status_candidate = m.group(1).strip()
+                      s_low = status_candidate.lower()
 
-              # pretty module name from filename
-              modname = re.sub(r"module\d+-", "", fname, flags=re.IGNORECASE).replace(".md", "").replace("-", " ").title()
-              link = f"[Notes]({modules_dir}/{fname})"
-              table_rows.append(f"| {idx} | {modname} | {status_text} | {link} |")
+                      if "✅" in status_candidate or "completed" in s_low:
+                          status_text = "✅ Completed"
+                          completed += 1
+                      elif "🟡" in status_candidate or "in progress" in s_low:
+                          status_text = "🟡 In Progress"
+                          in_progress += 1
+
+              link = f"[Notes]({modules_dir}/{fname})" if os.path.isfile(fpath) else "-"
+              table_rows.append(f"| {idx} | {title} | {status_text} | {link} |")
 
           not_started = total - completed - in_progress
 
-          # weight for in-progress (0.5 = half a completed module)
-          in_progress_weight = 0.5
-          effective = completed + in_progress_weight * in_progress
+          # Weighted progress (in-progress = 0.5)
+          effective = completed + 0.5 * in_progress
           percent = math.floor((effective / total) * 100)
 
           badge = f"![Progress](https://img.shields.io/badge/Progress-{percent}%25-blue)"
 
-          # NOTE: Using '***' instead of '---' avoids YAML parsing issues.
           readme = (
               "# ☁ AWS Cloud Practitioner Essentials – Learning Tracker\n\n"
               "Automatically updated progress for the **AWS Cloud Practitioner Essentials** course.\n\n"
