@@ -55,3 +55,35 @@ Focus on your business and customers, not on the "undifferentiated heavy lifting
 Easily deploy your applications in multiple geographic locations around the world with just a few clicks. This allows you to provide lower latency and a better experience for your customers at a global scale, without the expense and time of building data centers overseas.
 
 ---
+
+## AWS Global Infrastructure
+
+AWS's infrastructure is designed for **high availability** and **fault tolerance**, ensuring your applications are resilient and always accessible. This is achieved through a multi-layered structure. 
+
+* **Regions:** A **Region** is a physical location in the world where AWS clusters data centers (e.g., Ohio, USA; Paris, France; Tokyo, Japan).
+* **Availability Zones (AZs):** Each Region consists of three or more isolated and physically separate **Availability Zones**. An AZ is one or more discrete data centers with redundant power, networking, and connectivity. By running applications across multiple AZs, you can protect them from a single point of failure.
+* **Data Centers:** These are the secure buildings that house the physical servers and hardware that run the AWS cloud.
+
+If a disaster (or a simple spilled latte) takes out a single data center, your application can failover to another one within the same AZ. If an entire AZ is affected, it can failover to another AZ in the same Region, ensuring your customers are never impacted.
+
+---
+
+## The Shared Responsibility Model
+
+When it comes to security, responsibility is shared between you and AWS. A helpful analogy is securing a house: AWS builds the strong walls and solid doors, but you are responsible for locking them.
+
+### AWS Responsibility: Security **OF** the Cloud
+
+AWS is responsible for protecting the infrastructure that runs all of the AWS services. This includes:
+
+* **Physical Security** of the data centers.
+* **Hardware and Software Infrastructure** (compute, storage, networking).
+* **Network Infrastructure** and the **Hypervisor** (virtualization) layer.
+
+### Customer Responsibility: Security **IN** the Cloud
+
+You are responsible for securing the resources you create and the data you put in the cloud. This includes:
+
+* **Customer Data:** You control who can access your data and are responsible for encrypting it.
+* **Platform, Applications, and Operating System:** You are responsible for patching the OS, managing user access, and securing your applications.
+* **Network and Firewall Configuration:** You control your own network access rules, like who can send traffic to your instances.
