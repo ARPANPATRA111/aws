@@ -1,6 +1,6 @@
 # Module 2 — Compute in the Cloud 💻
 
-Status: 🟡 In Progress
+Status: ✅ Completed
 
 ## What is Amazon EC2?
 
@@ -41,3 +41,31 @@ Everything you do in AWS is an **API (Application Programming Interface)** call.
 
 ---
 
+## EC2 Pricing Options
+
+EC2 offers several billing options to help you optimize costs based on your usage patterns.
+
+* **On-Demand:** Pay for compute capacity by the hour or second with no long-term commitments. Perfect for applications with short-term, unpredictable workloads.
+* **Savings Plans:** Commit to a consistent amount of compute usage (e.g., $10/hour) for a 1 or 3-year term to receive a significant discount (up to 72%). This is a flexible option that applies across instance families and even to other services like AWS Lambda.
+* **Reserved Instances (RIs):** For applications with steady-state or predictable usage, you can commit to specific instance types for a 1 or 3-year term for discounts up to 75%.
+* **Spot Instances:** Request spare EC2 computing capacity for up to 90% off the On-Demand price. These instances can be interrupted by AWS, making them ideal for workloads that can tolerate interruptions, like batch jobs or data analysis.
+* **Dedicated Hosts:** A physical EC2 server dedicated for your use. This helps you address compliance requirements and use existing server-bound software licenses.
+
+---
+
+## Scalability, Elasticity, and Load Balancing
+
+A key benefit of the cloud is the ability to automatically adjust capacity to meet demand.
+
+* **Scalability:** The ability for your system to handle a growing amount of work. In AWS, this is often done via **horizontal scaling** (or scaling out), which means adding more EC2 instances to your resource pool.
+* **Elasticity:** The ability to scale capacity up and down automatically based on demand. **Amazon EC2 Auto Scaling** is the service that makes this possible. It monitors your application (using **Amazon CloudWatch** metrics) and automatically adds or removes instances to maintain performance and minimize cost.
+* **Load Balancing:** To distribute incoming traffic evenly across your fleet of EC2 instances, you use a load balancer. **Elastic Load Balancing (ELB)** is an AWS service that automatically routes traffic to the healthiest instances, preventing any single instance from becoming a bottleneck. This increases the fault tolerance and availability of your application.
+
+---
+
+## Decoupling Applications: SQS and SNS
+
+In a modern cloud architecture, it's a best practice to build **loosely coupled** systems. This means that if one component fails, it doesn't cause cascading failures throughout the entire system. Messaging and queuing services are essential for achieving this.
+
+* **Amazon SQS (Simple Queue Service):** A fully managed message queuing service. It provides a buffer, or **queue**, between application components. One component can send messages to the queue, and another can process them when ready. This decouples the components, so if the processing application fails, messages can safely wait in the queue until it recovers.
+* **Amazon SNS (Simple Notification Service):** A publish/subscribe (pub/sub) service. A "publisher" sends a message to an SNS **topic**, and SNS immediately pushes that message to all "subscribers" of that topic. It's used for sending time-sensitive notifications to a large number of recipients, such as push notifications to mobile devices, SMS messages, or triggering other AWS services.
