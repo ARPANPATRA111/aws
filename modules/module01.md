@@ -58,7 +58,7 @@ Easily deploy your applications in multiple geographic locations around the worl
 
 ## AWS Global Infrastructure
 
-AWS's infrastructure is designed for **high availability** and **fault tolerance**, ensuring your applications are resilient and always accessible. This is achieved through a multi-layered structure. 
+AWS's infrastructure is designed for **high availability** and **fault tolerance**, ensuring your applications are resilient and always accessible. This is achieved through a multi-layered structure.
 
 * **Regions:** A **Region** is a physical location in the world where AWS clusters data centers (e.g., Ohio, USA; Paris, France; Tokyo, Japan).
 * **Availability Zones (AZs):** Each Region consists of three or more isolated and physically separate **Availability Zones**. An AZ is one or more discrete data centers with redundant power, networking, and connectivity. By running applications across multiple AZs, you can protect them from a single point of failure.

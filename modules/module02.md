@@ -4,68 +4,91 @@ Status: ✅ Completed
 
 ## What is Amazon EC2?
 
-**Amazon Elastic Compute Cloud (Amazon EC2)** is the AWS service that provides secure, resizable compute capacity—essentially, virtual servers—in the cloud. Instead of buying and managing your own physical servers, you can launch **EC2 instances** in minutes and scale your capacity up or down as needed.
+**Amazon Elastic Compute Cloud (EC2)** is an AWS service that provides the raw compute capacity needed to host your applications. In simple terms, an EC2 instance is a **virtual machine (VM)**, or a virtual server, that you can request and launch in the AWS cloud. Resources are provisioned **based on demand**, allowing you to scale your capacity up or down as your needs change.
 
-EC2 instances are **virtual machines (VMs)**. They run on a physical host machine that is shared with other instances, a concept known as **multi-tenancy**. The isolation and resource management between these VMs is handled by a **hypervisor**, which is managed entirely by AWS. You, the customer, have complete control over the instance itself, including:
+Instead of the slow and expensive process of acquiring a physical server, EC2 allows you to launch instances on-demand. When you're done, you can stop or terminate them and only pay for the time they were running.
 
-* **Operating System (OS):** Choose between various distributions of Linux or Windows.
-* **Software:** Install your own business applications, web servers, databases, or third-party software.
-* **Sizing:** You can resize an instance by giving it more CPU or memory, a process called **vertical scaling**.
-* **Networking:** You control who can access your instance.
+### Multi-Tenancy and the Hypervisor
 
-You only pay for the time your instances are running, making it a highly flexible and cost-effective way to acquire compute power.
+EC2 instances run in a **multi-tenant** environment. This refers to a model where **multiple users share the same physical host hardware while maintaining secure isolation from each other**. This isolation is managed by a piece of software called a **hypervisor**, which is handled entirely by AWS.
 
 ---
 
-## EC2 Instance Types
+## Foundational EC2 Concepts
 
-Just as a coffee shop needs different machines for espresso, drip coffee, and cold brew, different workloads require different types of compute power. EC2 instance types are grouped into **families**, each offering a specific combination of CPU, memory, storage, and networking capacity.
+### Amazon Machine Images (AMIs)
 
-* **General Purpose:** Provide a balance of compute, memory, and networking. Ideal for diverse workloads like web servers or code repositories.
-* **Compute Optimized:** For compute-intensive tasks that require high-performance processors, like gaming servers, scientific modeling, or high-performance computing (HPC).
-* **Memory Optimized:** Designed for workloads that process large data sets in memory, such as high-performance databases or real-time big data analytics.
-* **Accelerated Computing:** Use hardware accelerators (co-processors) for tasks like graphics processing, machine learning, and floating-point calculations.
-* **Storage Optimized:** Built for workloads requiring high, sequential read and write access to very large data sets on local storage.
+An **Amazon Machine Image (AMI)** is a pre-configured template for your instances. Its primary role is to **provide a consistent image to launch new instances**. An AMI includes the operating system, software packages, and other required settings. When you launch multiple instances from the same AMI, you ensure they all have the same baseline configuration, which is crucial for scaling applications reliably.
 
-When you select an instance type, you also choose a **size** (e.g., `t2.micro`, `m5.large`). This allows you to balance performance and cost to fit your needs perfectly.
+### Interacting with AWS Services
+
+Everything in AWS is an **API** (Application Programming Interface) call. There are three main ways to manage your AWS resources:
+
+1. **AWS Management Console:** A user-friendly, browser-based graphical user interface (GUI). It's great for learning, viewing bills, and performing tasks visually, but it is not ideal for automating repetitive processes.
+2. **AWS Command Line Interface (CLI):** A tool that allows you to control AWS services from a terminal using text-based commands. This makes it possible to automate tasks through scripting.
+3. **AWS Software Development Kits (SDKs):** Allows you to interact with AWS services using various programming languages like Python, Java, or .NET. This is the foundation for building applications that integrate with AWS.
 
 ---
 
-## Interacting with AWS Services
+## EC2 Instance Families
 
-Everything you do in AWS is an **API (Application Programming Interface)** call. There are three primary ways to interact with these APIs to manage your resources.
+EC2 instance types are grouped into families, each offering a unique combination of CPU, memory, storage, and networking. Choosing the right one helps optimize performance and cost.
 
-* **AWS Management Console:** A web-based, visual interface. It's great for learning, viewing bills, and performing tasks that don't require automation.
-* **AWS Command Line Interface (CLI):** A tool that lets you control AWS services from your terminal using commands. This enables powerful automation through scripting.
-* **AWS Software Development Kits (SDKs):** Allows you to manage AWS resources from your favorite programming languages (like Python, Java, or JavaScript), integrating AWS capabilities directly into your applications.
+| Family | Description | Ideal Use Cases |
+| --- | --- | --- |
+| **General Purpose** | Provides a balanced mix of compute, memory, and networking resources. A flexible and cost-effective choice for a wide variety of workloads. | Web servers, code repositories, new applications with unknown traffic patterns. |
+| **Compute Optimized**| Ideal for tasks that require significant CPU power to perform complex computations. | Gaming servers, high-performance computing (HPC), scientific and climate modeling simulations. |
+| **Memory Optimized** | Delivers fast performance for workloads that process large datasets in memory. | High-performance databases, real-time big data analytics. |
+| **Storage Optimized** | Designed for workloads that need high, sequential read/write access to very large datasets on local storage. | Data warehousing, distributed file systems. |
+| **Accelerated Computing**| Uses hardware accelerators (co-processors/GPUs) to perform functions more efficiently than software on CPUs. | Complex visual effects rendering, machine learning, data pattern matching. |
+
+You can also resize an instance (a process called **vertical scaling**) by giving it more CPU or memory if your application's needs change.
 
 ---
 
 ## EC2 Pricing Options
 
-EC2 offers several billing options to help you optimize costs based on your usage patterns.
+EC2 provides several billing options to help you optimize costs based on your usage patterns.
 
-* **On-Demand:** Pay for compute capacity by the hour or second with no long-term commitments. Perfect for applications with short-term, unpredictable workloads.
-* **Savings Plans:** Commit to a consistent amount of compute usage (e.g., $10/hour) for a 1 or 3-year term to receive a significant discount (up to 72%). This is a flexible option that applies across instance families and even to other services like AWS Lambda.
-* **Reserved Instances (RIs):** For applications with steady-state or predictable usage, you can commit to specific instance types for a 1 or 3-year term for discounts up to 75%.
-* **Spot Instances:** Request spare EC2 computing capacity for up to 90% off the On-Demand price. These instances can be interrupted by AWS, making them ideal for workloads that can tolerate interruptions, like batch jobs or data analysis.
-* **Dedicated Hosts:** A physical EC2 server dedicated for your use. This helps you address compliance requirements and use existing server-bound software licenses.
-
----
-
-## Scalability, Elasticity, and Load Balancing
-
-A key benefit of the cloud is the ability to automatically adjust capacity to meet demand.
-
-* **Scalability:** The ability for your system to handle a growing amount of work. In AWS, this is often done via **horizontal scaling** (or scaling out), which means adding more EC2 instances to your resource pool.
-* **Elasticity:** The ability to scale capacity up and down automatically based on demand. **Amazon EC2 Auto Scaling** is the service that makes this possible. It monitors your application (using **Amazon CloudWatch** metrics) and automatically adds or removes instances to maintain performance and minimize cost.
-* **Load Balancing:** To distribute incoming traffic evenly across your fleet of EC2 instances, you use a load balancer. **Elastic Load Balancing (ELB)** is an AWS service that automatically routes traffic to the healthiest instances, preventing any single instance from becoming a bottleneck. This increases the fault tolerance and availability of your application.
+| Option | Best For | Description |
+| --- | --- | --- |
+| **On-Demand** | New applications with unsure traffic, or short-term, spiky workloads. | Pay by the hour or second with **no long-term commitment**. Offers the most flexibility. |
+| **Savings Plans** | Consistent, steady-state usage. | Commit to a consistent amount of usage (in $/hour) for a 1- or 3-year term to receive a discount of up to 72%. |
+| **Reserved Instances** | **Predictable, long-term workloads** (e.g., 3 years). | Commit to a specific instance type in a specific region for a 1- or 3-year term for up to a 75% discount. |
+| **Spot Instances** | Non-time-sensitive, fault-tolerant batch jobs. | Request spare EC2 capacity for up to 90% off the On-Demand price. These instances can be interrupted with a 2-minute warning. |
 
 ---
 
-## Decoupling Applications: SQS and SNS
+## Scalability, Load Balancing, and Messaging
 
-In a modern cloud architecture, it's a best practice to build **loosely coupled** systems. This means that if one component fails, it doesn't cause cascading failures throughout the entire system. Messaging and queuing services are essential for achieving this.
+### Auto Scaling and Elastic Load Balancing
 
-* **Amazon SQS (Simple Queue Service):** A fully managed message queuing service. It provides a buffer, or **queue**, between application components. One component can send messages to the queue, and another can process them when ready. This decouples the components, so if the processing application fails, messages can safely wait in the queue until it recovers.
-* **Amazon SNS (Simple Notification Service):** A publish/subscribe (pub/sub) service. A "publisher" sends a message to an SNS **topic**, and SNS immediately pushes that message to all "subscribers" of that topic. It's used for sending time-sensitive notifications to a large number of recipients, such as push notifications to mobile devices, SMS messages, or triggering other AWS services.
+**Amazon EC2 Auto Scaling** and **Elastic Load Balancing (ELB)** work together to create a scalable and highly available architecture.
+
+* **EC2 Auto Scaling** automatically **adds or removes instances based on performance data and application metrics** (monitored by Amazon CloudWatch). It ensures you have enough instances to meet demand but scales down to save money when demand decreases.
+* **Elastic Load Balancing (ELB)** acts as a single point of contact for traffic and **distributes those incoming requests evenly across the healthy instances** that Auto Scaling is managing.
+
+### Messaging and Queuing for Decoupled Architectures
+
+To build resilient applications, it's best to create a loosely coupled architecture. This means components are independent; if one component fails, the rest of the system can continue to function normally. This is achieved with messaging services.
+
+* **Amazon SQS (Simple Queue Service):** A message queue used as a buffer between application components. Messages are stored in the queue until they can be processed. This is ideal for tasks that can be processed later and ensures no data is lost if a component is temporarily unavailable.
+* **Amazon SNS (Simple Notification Service):** A "publish/subscribe" service for sending time-sensitive, real-time notifications. A single message is "published" to a topic and immediately pushed to all subscribers (e.g., sending an immediate email or SMS when a bug is reported).
+
+---
+
+## Resources
+
+| Resource link | Description |
+| --- | --- |
+| [Compute on AWS](https://aws.amazon.com/products/compute/) | This resource provides an overview of the different cloud computing services offered by AWS. |
+| [AWS Compute Blog](https://aws.amazon.com/blogs/compute/) | This blog provides updates, tutorials, and best practices for using AWS compute services. |
+| [AWS Compute Services](https://docs.aws.amazon.com/whitepapers/latest/aws-overview/compute-services.html) | This reference provides an in-depth introduction to the compute services available within the AWS Cloud. |
+| [Hands-On Tutorials: Compute](https://aws.amazon.com/getting-started/hands-on/?awsf.getting-started-category=category%23compute) | This resource provides practical, step-by-step tutorials to help users gain hands-on experience. |
+| [Amazon EC2](https://aws.amazon.com/ec2/) | Amazon EC2 runs virtual servers in the cloud with flexible computing capacity. |
+| [Amazon EC2 Instance Types](https://aws.amazon.com/ec2/instance-types/) | This guide provides detailed information about the different types of EC2 instances. |
+| [Amazon EC2 Pricing](https://aws.amazon.com/ec2/pricing/) | This guide explains the different pricing models for EC2 instances. |
+| [Amazon EC2 Auto Scaling](https://aws.amazon.com/ec2/autoscaling/) | Amazon EC2 Auto Scaling automatically adjusts instance count based on demand. |
+| [Elastic Load Balancing](https://aws.amazon.com/elasticloadbalancing/) | ELB automatically distributes incoming application traffic across multiple EC2 instances. |
+| [Amazon SNS](https://aws.amazon.com/sns/) | Amazon SNS is a messaging service for sending notifications to users or other applications. |
+| [Amazon SQS](https://aws.amazon.com/sqs/) | Amazon SQS decouples application components through message queuing. |
