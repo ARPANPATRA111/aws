@@ -5,9 +5,9 @@ Automatically updated progress for the **AWS Cloud Practitioner Essentials** cou
 ***
 
 ## 📊 Overall Progress
-![Progress](https://img.shields.io/badge/Progress-15%25-blue)
+![Progress](https://img.shields.io/badge/Progress-19%25-blue)
 
-**Completed:** 2/13 • **In Progress:** 0 • **Not Started:** 11
+**Completed:** 2/13 • **In Progress:** 1 • **Not Started:** 10
 
 ***
 
@@ -16,7 +16,7 @@ Automatically updated progress for the **AWS Cloud Practitioner Essentials** cou
 |----|-------------|--------|------|
 | 1 | Module 1 - Introduction to the Cloud | ✅ Completed | [Notes](<modules/module01.md>) |
 | 2 | Module 2 - Compute in the Cloud | ✅ Completed | [Notes](<modules/module02.md>) |
-| 3 | Module 3 - Exploring Compute Services | ⬜ Not Started | — |
+| 3 | Module 3 - Exploring Compute Services | 🟡 In Progress | [Notes](<modules/module03.md>) |
 | 4 | Module 4 - Going Global | ⬜ Not Started | — |
 | 5 | Module 5 - Networking | ⬜ Not Started | — |
 | 6 | Module 6 - Storage | ⬜ Not Started | — |
