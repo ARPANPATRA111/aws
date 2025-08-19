@@ -1,6 +1,6 @@
 # Module 4 — Going Global 🌐
 
-Status: ✅ Completed
+Status: 🟡 In Progress
 
 ## The AWS Global Infrastructure Relationship
 
