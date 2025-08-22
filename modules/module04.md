@@ -1,6 +1,6 @@
 # Module 4 — Going Global 🌐
 
-Status: 🟡 In Progress
+Status: ✅ Completed
 
 ## The AWS Global Infrastructure Relationship
 
@@ -45,3 +45,15 @@ When you need to deploy and manage resources across multiple Regions or accounts
 
 * **How it Works:** You define all the resources you need (like servers, databases, and message queues) in a text-based document called a **template**. CloudFormation reads this template and automatically builds your entire environment.
 * **Key Benefits:** This method helps **reduce errors and maintain consistency across environments**. By deploying the same template in different Regions, you create identical, error-free setups every time.
+
+## Summary
+
+This module covered the key considerations for taking your applications global with AWS. You have learned how to choose the right AWS Region based on compliance, proximity, features, and pricing. You explored how to build resilient applications using multi-AZ and multi-Region architectures to achieve high availability and low latency. You also learned how to accelerate content delivery using the AWS Global Edge Network, and how to automate and standardize your deployments using Infrastructure as Code with AWS CloudFormation.
+
+## Resources
+
+| Resource link | Description |
+| :--- | :--- |
+| [AWS Global Infrastructure](https://aws.amazon.com/about-aws/global-infrastructure/) | Learn more about the AWS Global Infrastructure. |
+| [AWS for the Edge](https://aws.amazon.com/edge/) | Learn more about AWS edge locations and edge networking. |
+| [AWS CloudFormation](https://aws.amazon.com/cloudformation/) | Learn more about the infrastructure as code service, CloudFormation. |
