@@ -14,3 +14,14 @@ Within a VPC, you organize your resources into **subnets**. A subnet is a range 
 
 * **Public Subnets:** Contain resources, like a web server, that need to be accessible from the internet.
 * **Private Subnets:** Contain resources, like a backend database, that should be isolated from users on the internet.
+
+### Availability Zones (AZs)
+
+An **Availability Zone** is a physically isolated data center or set of data centers within an AWS Region. Its primary function is to **enhance application availability and fault tolerance** by allowing you to deploy resources across multiple, redundant locations within the same Region.
+
+## Connecting to Your VPC
+
+### Gateways for VPC Access
+
+* **Internet Gateway:** This is the "front door" to your VPC, allowing communication between resources in your public subnets and the internet.
+* **Virtual Private Gateway:** This is a private "door" used to establish a secure, private connection between your on--premises network and your VPC. It is the VPN endpoint on the AWS side of the connection.
