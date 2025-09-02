@@ -67,3 +67,25 @@ Based on the AWS Shared Responsibility Model, the customer is responsible for **
 ## Summary
 
 This module covered AWS networking fundamentals. You learned how to create an isolated network using **Amazon VPC** with **public and private subnets**. You explored various connection methods, including **Virtual Private Gateways**, **Direct Connect**, and **VPN** services. You also learned to secure network traffic using stateless **Network ACLs** at the subnet level and stateful **Security Groups** at the instance level. Finally, you saw how edge networking services like **Route 53**, **CloudFront**, and **Global Accelerator** work to route users and deliver content globally with high performance and availability.
+
+## Resources
+
+| Resource link | Description |
+| :--- | :--- |
+| [Amazon Virtual Private Cloud](https://aws.amazon.com/vpc/) | A service to provision a logically isolated section of the AWS Cloud where you can launch resources. |
+| [Subnet](https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html) | A section of a VPC that can contain resources like EC2 instances and is used to organize them. |
+| [Internet gateway](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html) | A connection between a VPC and the internet, allowing public traffic to access your VPC. |
+| [Virtual private gateway](https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html) | The component that allows protected internet traffic to enter into the VPC from an approved network. |
+| [AWS Client VPN](https://aws.amazon.com/vpn/client-vpn/) | A networking service to connect your remote workers and on-premises networks to the cloud. |
+| [AWS Site-to-Site VPN](https://aws.amazon.com/vpn/site-to-site-vpn/) | Creates a secure connection between your data center or branch offices and your AWS Cloud resources. |
+| [AWS PrivateLink](https://aws.amazon.com/privatelink/) | A scalable technology to privately connect your VPC to services and resources as if they were in your VPC. |
+| [AWS Direct Connect](https://aws.amazon.com/directconnect/) | A service that provides a dedicated private connection between your data center and a VPC. |
+| [Network Access Control List (network ACL)](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-acls.html) | Allows or denies specific inbound or outbound traffic at the subnet level using stateless packet filtering. |
+| [Security groups](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html) | Control the inbound and outbound traffic for a resource at the instance level using stateful packet filtering. |
+| [Domain Name System (DNS)](https://aws.amazon.com/route53/what-is-dns/) | Translates human-readable domain names to machine-readable IP addresses. |
+| [Amazon Route 53](https://aws.amazon.com/route53/) | A scalable and reliable DNS web service that also supports domain registration and health checks. |
+| [Amazon CloudFront](https://aws.amazon.com/cloudfront/) | A web service that speeds up the distribution of your web content to your users through a worldwide network. |
+| [AWS Global Accelerator](https://aws.amazon.com/global-accelerator/) | A networking service that helps improve the availability and performance of applications for global users. |
+| [Amazon Transit Gateway](https://aws.amazon.com/transit-gateway/) | A network transit hub used to interconnect VPCs and on-premises networks. |
+| [NAT Gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) | Allows instances in a private subnet to connect with services outside your VPC. |
+| [API Gateway](https://aws.amazon.com/api-gateway/) | An AWS service for creating, publishing, maintaining, monitoring, and securing APIs at any scale. |
