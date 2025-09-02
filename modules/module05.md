@@ -49,3 +49,21 @@ Based on the AWS Shared Responsibility Model, the customer is responsible for **
 * **Role & Scope:** Acts as a virtual firewall for your **EC2 instances** to control inbound and outbound traffic at the instance level.
 * **Rules:** You can only set up **allow** rules. By default, all inbound traffic is denied.
 * **State:** Security Groups are **stateful**. If you allow incoming traffic, the corresponding outgoing (return) traffic is automatically allowed, regardless of outbound rules.
+
+## Edge Networking & Content Delivery
+
+### Amazon Route 53
+
+**Amazon Route 53** is a highly available and scalable **Domain Name System (DNS)**. Its primary function is to **translate human-readable domain names** (like `www.mycompany.com`) into machine-readable IP addresses. It can also be used to manage domain registrations and route internet traffic to your resources.
+
+### Amazon CloudFront
+
+**Amazon CloudFront** is a **Content Delivery Network (CDN)** designed to deliver static content (like training videos) and dynamic content with **low latency**. It securely delivers content through a worldwide network of data centers called edge locations.
+
+### AWS Global Accelerator
+
+**AWS Global Accelerator** is a networking service that improves the **availability and performance** of your applications for global users. It provides static IP addresses and directs traffic over the AWS global network to optimal endpoints based on health, user location, and your configured policies. This is the best solution for traffic routing when something goes wrong in one of your application's locations.
+
+## Summary
+
+This module covered AWS networking fundamentals. You learned how to create an isolated network using **Amazon VPC** with **public and private subnets**. You explored various connection methods, including **Virtual Private Gateways**, **Direct Connect**, and **VPN** services. You also learned to secure network traffic using stateless **Network ACLs** at the subnet level and stateful **Security Groups** at the instance level. Finally, you saw how edge networking services like **Route 53**, **CloudFront**, and **Global Accelerator** work to route users and deliver content globally with high performance and availability.
