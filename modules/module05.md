@@ -1,6 +1,6 @@
 # Module 5 — Networking 🔗
 
-Status: 🟡 In Progress
+Status: ✅ Completed
 
 ## What is Networking in AWS?
 
