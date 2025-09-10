@@ -1,6 +1,6 @@
 # Module 6 — Storage 🗄️
 
-Status: 🟡 In Progress
+Status: ✅ Completed
 
 ## Core AWS Storage Categories
 
