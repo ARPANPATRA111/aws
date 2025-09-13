@@ -30,3 +30,11 @@ A **relational database** stores data in tables with rigid structures, relating 
 **Amazon ElastiCache** is a fully managed in-memory caching service.
 
 * **Primary Benefit:** Its core function is **improved application performance through in-memory caching**. By serving frequent read requests from memory, it reduces latency and offloads the primary database.
+
+## Other Purpose-Built Databases
+
+AWS recommends using purpose-built databases designed for specific workloads.
+
+* **Amazon DocumentDB:** A document database service (MongoDB-compatible) that excels at handling semi-structured data. A practical use case is **storing and managing a large product catalog** for an e-commerce application.
+
+* **Amazon Neptune:** A graph database service designed for **managing and querying highly connected datasets efficiently**, making it ideal for social networks, recommendation engines, and fraud detection.
